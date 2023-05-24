@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Mobile_App_Enriquez.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Mobile_App_Enriquez.Pages"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.BackgroundColor="{StaticResource Gradient1}"
+    Shell.TitleColor="{StaticResource TextColorWhite}"
+    Shell.TabBarBackgroundColor="{StaticResource Gradient1}"
+    Shell.TabBarTitleColor="{StaticResource TextColorWhite}"
+    Shell.TabBarUnselectedColor="{StaticResource TextColorGary}">
+
+
+    <TabBar>
+        <ShellContent Title="Dashboard"
+                      Icon="home_50px.png"
+                      ContentTemplate="{DataTemplate local:Homepage}"/>
+        <ShellContent Title="Student"
+                      Icon="student_male_50px.png"
+                      ContentTemplate="{DataTemplate local:StudentPage}"/>
+        <ShellContent Title="Search"
+                      Icon="search_50px.png"
+                      ContentTemplate="{DataTemplate local:SearchPage}"/>
+        <ShellContent Title="Settings"
+                      Icon="settings_50px.png"
+                      ContentTemplate="{DataTemplate local:SettingsPage}"/>
+        
+    </TabBar>
+
+</Shell>

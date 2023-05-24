@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mobile_App_Enriquez.Pages.ProductInformationPage"
+             Title="ProductInformationPage">
+    <VerticalStackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Spacing="10">
+        <Label 
+            FontSize="30" Text="Product Information" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+
+        <Entry x:Name="Pname" Placeholder="Product Name" WidthRequest="300"/>
+        <Entry x:Name="Pdescript" Placeholder="Product Description"/>
+        <Entry x:Name="Pprice" Placeholder="Price"/>
+
+        <Button Text="Save" TextColor="Black" x:Name="SAVEBTN" Clicked="SAVEBTN_Clicked"/>
+        <Button TextColor="Black" Text="Back" x:Name="BACKBTN" Clicked="BACKBTN_Clicked" />
+    </VerticalStackLayout>
+</ContentPage>
