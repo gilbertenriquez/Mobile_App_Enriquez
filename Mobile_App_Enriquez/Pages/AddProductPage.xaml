@@ -198,9 +198,9 @@
                 <Grid HeightRequest="50"
                   Grid.Column="1" ColumnDefinitions="*,*" ColumnSpacing="10"
                   Margin="20" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
-                    <Button Text="Cancel" Grid.Column="0"
+                    <Button Text="Cancel" Grid.Column="0" x:Name="BTNBACK"
                         BorderColor="{StaticResource ButtonColor}" BorderWidth="1"
-                        TextColor="{StaticResource ButtonColor}" />
+                        TextColor="{StaticResource ButtonColor}" Clicked="BTNBACK_Clicked"/>
                     <Button Text="Next" Grid.Column="1" x:Name="NEXTBTN"
                             Clicked="NEXTBTN_Clicked" TextColor="{StaticResource TextColorBlack}"
                         BackgroundColor="{StaticResource ButtonColor}"/>

@@ -132,6 +132,9 @@ public partial class AddProductPage : ContentPage
     {
         await Navigation.PushModalAsync(new ProductInformationPage());
     }
-    
 
+    private async void BTNBACK_Clicked(object sender, EventArgs e)
+    {
+        await Navigation.PopModalAsync();
+    }
 }

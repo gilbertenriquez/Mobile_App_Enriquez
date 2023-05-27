@@ -100,17 +100,23 @@ namespace Mobile_App_Enriquez.Models
 
         public async Task<List<Student>> GetAllUsers()
         {
+            try
+            {
+                return (await client
+                                .Child("Products")
+                                .OnceAsync<Student>()).Select(item => new Student
+                                {
+                                    Imagae_1_link = item.Object.Imagae_1_link,
+                                    ProductName = item.Object.ProductName,
+                                    ProductDesc = item.Object.ProductDesc,
+                                    ProductPrice = item.Object.ProductPrice,
 
-            return (await client
-                .Child("Products")
-                .OnceAsync<Student>()).Select(item => new Student
-                {
-                    Imagae_1_link = item.Object.Imagae_1_link,
-                    ProductName = item.Object.ProductName,
-                    ProductDesc = item.Object.ProductDesc,
-                    ProductPrice = item.Object.ProductPrice,
-
-                }).ToList();
+                                }).ToList();
+            }
+            catch { 
+                return null;
+            }
+          
         }
 
         public ObservableCollection<Student> GetEmployeesList()

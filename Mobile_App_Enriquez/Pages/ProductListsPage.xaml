@@ -8,7 +8,7 @@
     <AbsoluteLayout>
         <Grid RowDefinitions="*" AbsoluteLayout.LayoutFlags="SizeProportional"
               AbsoluteLayout.LayoutBounds="0,0,1,1">
-            <RefreshView x:Name="refreshView" Grid.Row="0"
+            <RefreshView x:Name="refreshView" Grid.Row="0" Refreshing="refreshView_Refreshing"
                          RefreshColor="{StaticResource ButtonColor}"
                         >
                 <Grid VerticalOptions="FillAndExpand" Margin="2"
@@ -108,21 +108,21 @@
                                                                HorizontalOptions="Start"
                                                                FontFamily="RobotoCondensed" VerticalOptions="Center"
                                                                FontAttributes="Bold" LineBreakMode="TailTruncation"
-                                                               TextColor="{StaticResource TextColorBlack}" />
+                                                               TextColor="{StaticResource TextColorWhite}" />
 
                                                         <Label Text="{Binding ProductDesc}"
                                                                FontSize="20" TextTransform="Uppercase"
                                                                HorizontalOptions="Start"
                                                                FontFamily="RobotoCondensed" VerticalOptions="Center"
                                                                FontAttributes="Bold" LineBreakMode="TailTruncation"
-                                                               TextColor="{StaticResource TextColorBlack}" />
+                                                               TextColor="{StaticResource TextColorWhite}" />
 
                                                         <Label Text="{Binding ProductPrice}"
                                                                FontSize="20" TextTransform="Uppercase"
                                                                HorizontalOptions="Start"
                                                                FontFamily="RobotoCondensed" VerticalOptions="Center"
                                                                FontAttributes="Bold" LineBreakMode="TailTruncation"
-                                                               TextColor="{StaticResource TextColorBlack}" />
+                                                               TextColor="{StaticResource TextColorWhite}" />
 
 
                                                     </HorizontalStackLayout>
@@ -369,7 +369,7 @@
                    TextColor="WhiteSmoke"/>-->
         </StackLayout>
         <Grid x:Name="nointernet"
-                             IsVisible="False"
+                             IsVisible="false"
                              VerticalOptions="FillAndExpand"
                              HorizontalOptions="FillAndExpand"
                              AbsoluteLayout.LayoutBounds="0,0,1,1"
