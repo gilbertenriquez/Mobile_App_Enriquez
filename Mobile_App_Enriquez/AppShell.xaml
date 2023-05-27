@@ -16,9 +16,9 @@
         <ShellContent Title="Dashboard"
                       Icon="home_50px.png"
                       ContentTemplate="{DataTemplate local:Homepage}"/>
-        <ShellContent Title="Student"
+        <ShellContent Title="Products"
                       Icon="student_male_50px.png"
-                      ContentTemplate="{DataTemplate local:StudentPage}"/>
+                      ContentTemplate="{DataTemplate local:ProductListsPage}"/>
         <ShellContent Title="Search"
                       Icon="search_50px.png"
                       ContentTemplate="{DataTemplate local:SearchPage}"/>

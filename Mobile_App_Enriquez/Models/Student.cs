@@ -7,6 +7,8 @@ using static Mobile_App_Enriquez.App;
 using Firebase.Database.Query;
 using Firebase.Storage;
 using Microsoft.Maui.ApplicationModel.Communication;
+using Firebase.Database;
+using System.Collections.ObjectModel;
 
 namespace Mobile_App_Enriquez.Models
 {
@@ -96,8 +98,33 @@ namespace Mobile_App_Enriquez.Models
             }
         }
 
+        public async Task<List<Student>> GetAllUsers()
+        {
 
-        public async Task<bool> Save(FileResult maninimg,
+            return (await client
+                .Child("Products")
+                .OnceAsync<Student>()).Select(item => new Student
+                {
+                    Imagae_1_link = item.Object.Imagae_1_link,
+                    ProductName = item.Object.ProductName,
+                    ProductDesc = item.Object.ProductDesc,
+                    ProductPrice = item.Object.ProductPrice,
+
+                }).ToList();
+        }
+
+        public ObservableCollection<Student> GetEmployeesList()
+        {
+            var employeelist = client
+                 .Child("Products")
+                .AsObservable<Student>()
+                .AsObservableCollection();
+            return employeelist;
+        }
+
+
+
+            public async Task<bool> Save(FileResult maninimg,
                                      FileResult img1,
                                      FileResult img2,
                                      FileResult img3,

@@ -2,11 +2,396 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Mobile_App_Enriquez.Pages.ProductListsPage"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+             xmlns:xct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="ProductListsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <AbsoluteLayout>
+        <Grid RowDefinitions="*" AbsoluteLayout.LayoutFlags="SizeProportional"
+              AbsoluteLayout.LayoutBounds="0,0,1,1">
+            <RefreshView x:Name="refreshView" Grid.Row="0"
+                         RefreshColor="{StaticResource ButtonColor}"
+                        >
+                <Grid VerticalOptions="FillAndExpand" Margin="2"
+                      RowDefinitions="Auto, *">
+                    <CollectionView Grid.Row="0" x:Name="ListStatus"
+                                    SelectionMode="Single">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Horizontal" Span="1" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <ContentView>
+                                    <Border HeightRequest="35" Padding="8" Margin="8,8"
+                                            BackgroundColor="{StaticResource Gradient1}"
+                                            StrokeThickness="0.2" Stroke="{StaticResource Gray100}"
+                                            StrokeShape="RoundRectangle 20">
+                                        <!--<Border.Shadow>
+                                    <Shadow Brush="{StaticResource ShadowDark}"
+                                            Radius="5"
+                                            Offset="5,5"
+                                            Opacity=".5" />
+                                </Border.Shadow>-->
+                                        <Label Text="{Binding StatusName}" TextColor="{StaticResource TextColorBlack}" />
+                                    </Border>
+                                </ContentView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <CollectionView Grid.Row="1" x:Name="ListAllProperties"
+                                    SelectionMode="Single"
+                                    >
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="1" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <ContentView Padding="2">
+                                    <Grid>
+                                        <Border HeightRequest="230" Padding="0" Margin="8,8"
+                                                BackgroundColor="{StaticResource Primary}"
+                                                StrokeThickness="2"
+                                                StrokeShape="RoundRectangle 20,120,20,20">
+                                            <!--<Border.Shadow>
+                                            <Shadow Brush="{StaticResource ShadowDark}"
+                                                    Radius="15"
+                                                    Offset="15,20"
+                                                    Opacity=".5" />
+                                        </Border.Shadow>-->
+                                            <!--Must add expander so the client can view if the renter has an advance payment-->
+                                            <Grid ColumnDefinitions="*" VerticalOptions="FillAndExpand">
+                                                <Image Grid.Column="0" Opacity="0.8"
+                                                       HorizontalOptions="Fill"
+                                                       Aspect="AspectFill">
+                                                    <Image.Source>
+                                                        <UriImageSource Uri="{Binding Imagae_1_link}"
+                                                                        CachingEnabled="True"
+                                                                        CacheValidity="5" />
+                                                    </Image.Source>
+                                                </Image>
+                                                <Grid RowSpacing="0" VerticalOptions="FillAndExpand" Grid.Column="0"
+                                                      RowDefinitions="Auto, Auto" Margin="10"
+                                                      ColumnDefinitions="Auto, *, Auto"
+                                                      HorizontalOptions="FillAndExpand">
+                                                    <Border Grid.Row="0" Opacity="0.1"
+                                                            StrokeShape="RoundRectangle 20"
+                                                            Grid.RowSpan="2" />
+                                                    <HorizontalStackLayout Grid.Row="0"
+                                                                           Spacing="10" Margin="10"
+                                                                           HorizontalOptions="StartAndExpand">
+                                                        <Border WidthRequest="70" HorizontalOptions="StartAndExpand"
+                                                                StrokeShape="RoundRectangle 50"
+                                                                Stroke="{StaticResource ButtonColor}"
+                                                                Padding="0" StrokeThickness="4"
+                                                                HeightRequest="70">
+                                                            <Image HorizontalOptions="Fill"
+                                                                   Aspect="AspectFill">
+                                                                <Image.Source>
+                                                                    <UriImageSource Uri="{Binding Imagae_1_link}"
+                                                                        CachingEnabled="True"
+                                                                        CacheValidity="5" />
+                                                                </Image.Source>
+                                                            </Image>
+                                                            <Border.Shadow>
+                                                                <Shadow Brush="{StaticResource ShadowDark}"
+                                                                        Radius="20"
+                                                                        Offset="10,10"
+                                                                        Opacity="1" />
+                                                            </Border.Shadow>
+                                                            <Border.GestureRecognizers>
+                                                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                                     />
+                                                            </Border.GestureRecognizers>
+                                                        </Border>
+                                                        <Label Text="{Binding ProductName}"
+                                                               FontSize="20" TextTransform="Uppercase"
+                                                               HorizontalOptions="Start"
+                                                               FontFamily="RobotoCondensed" VerticalOptions="Center"
+                                                               FontAttributes="Bold" LineBreakMode="TailTruncation"
+                                                               TextColor="{StaticResource TextColorBlack}" />
+
+                                                        <Label Text="{Binding ProductDesc}"
+                                                               FontSize="20" TextTransform="Uppercase"
+                                                               HorizontalOptions="Start"
+                                                               FontFamily="RobotoCondensed" VerticalOptions="Center"
+                                                               FontAttributes="Bold" LineBreakMode="TailTruncation"
+                                                               TextColor="{StaticResource TextColorBlack}" />
+
+                                                        <Label Text="{Binding ProductPrice}"
+                                                               FontSize="20" TextTransform="Uppercase"
+                                                               HorizontalOptions="Start"
+                                                               FontFamily="RobotoCondensed" VerticalOptions="Center"
+                                                               FontAttributes="Bold" LineBreakMode="TailTruncation"
+                                                               TextColor="{StaticResource TextColorBlack}" />
+
+
+                                                    </HorizontalStackLayout>
+
+                                                    <Grid Grid.Row="1" RowSpacing="10"
+                                                          Margin="10,0,0,10" ColumnSpacing="15"
+                                                          RowDefinitions="Auto, Auto, *"
+                                                          ColumnDefinitions="Auto, Auto, Auto, *">
+                                                        <Image Grid.Row="0" Source="stock.png"
+                                                               WidthRequest="20" HeightRequest="20" />
+                                                        <Label Grid.Row="0" Grid.Column="1"
+                                                               Text="{Binding PropertyStock}"
+                                                               FontSize="20"
+                                                               FontFamily="RobotoCondensed"
+                                                               FontAttributes="Bold" LineBreakMode="TailTruncation"
+                                                               TextColor="{StaticResource TextColorBlack}" />
+                                                        <Image Grid.Row="1" Source="heart.png"
+                                                               WidthRequest="20" HeightRequest="20" />
+                                                        <Label Grid.Row="1" Grid.Column="1"
+                                                               Text="1.6k"
+                                                               FontSize="20"
+                                                               FontFamily="RobotoCondensed"
+                                                               FontAttributes="Bold" LineBreakMode="TailTruncation"
+                                                               TextColor="{StaticResource TextColorBlack}" />
+                                                        <Image Grid.Row="2" Margin="0,5,0,0" Source="heart.png"
+                                                               WidthRequest="20" HeightRequest="20" />
+                                                        <Label Grid.Row="2" Grid.Column="1"
+                                                               Text="{Binding PropertyDescription}" Margin="0,5,0,0"
+                                                               FontSize="12" MaxLines="2" VerticalOptions="Center"
+                                                               FontFamily="RobotoCondensed"
+                                                               FontAttributes="Bold" LineBreakMode="WordWrap"
+                                                               TextColor="{StaticResource TextColorBlack}" />
+                                                    </Grid>
+
+                                                </Grid>
+                                            </Grid>
+                                        </Border>
+                                        <!--<Grid HorizontalOptions="EndAndExpand"
+                                          ColumnDefinitions="Auto, Auto, Auto, Auto"
+                                          VerticalOptions="End">
+                                        <Border Grid.Column="0" Opacity="1" HorizontalOptions="EndAndExpand"
+                                                BackgroundColor="{StaticResource ButtonColor}"
+                                                WidthRequest="50" StrokeShape="RoundRectangle 50"
+                                                Padding="0" Margin="0,90,-10,0" StrokeThickness="0"
+                                                HeightRequest="50">
+                                            <Image HorizontalOptions="Fill"
+                                                   Aspect="AspectFill">
+                                                <Image.Source>
+                                                    <UriImageSource Uri="{Binding PropImg_2}"
+                                                                    CachingEnabled="True"
+                                                                    CacheValidity="10:00:00:00" />
+                                                </Image.Source>
+                                            </Image>
+                                            <Border.GestureRecognizers>
+                                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                                      Tapped="TapGestureRecognizer_Tapped" />
+                                            </Border.GestureRecognizers>
+                                        </Border>
+                                        <Border Grid.Column="1" Opacity="1" HorizontalOptions="EndAndExpand"
+                                                BackgroundColor="{StaticResource ButtonColor}"
+                                                WidthRequest="60" StrokeShape="RoundRectangle 50"
+                                                Padding="0" Margin="0,90,-10,0" StrokeThickness="0"
+                                                HeightRequest="60">
+                                            <Image HorizontalOptions="Fill"
+                                                   Aspect="AspectFill">
+                                                <Image.Source>
+                                                    <UriImageSource Uri="{Binding PropImg_3}"
+                                                                    CachingEnabled="True"
+                                                                    CacheValidity="10:00:00:00" />
+                                                </Image.Source>
+                                            </Image>
+                                            <Border.GestureRecognizers>
+                                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                                      Tapped="TapGestureRecognizer_Tapped" />
+                                            </Border.GestureRecognizers>
+                                        </Border>
+                                        <Border Grid.Column="2" Opacity="1" HorizontalOptions="EndAndExpand"
+                                                BackgroundColor="{StaticResource ButtonColor}"
+                                                WidthRequest="70" StrokeShape="RoundRectangle 50"
+                                                Padding="0" Margin="0,90,0,0" StrokeThickness="0"
+                                                HeightRequest="70">
+                                            <Image HorizontalOptions="Fill"
+                                                   Aspect="AspectFill">
+                                                <Image.Source>
+                                                    <UriImageSource Uri="{Binding PropImg_4}"
+                                                                    CachingEnabled="True"
+                                                                    CacheValidity="10:00:00:00" />
+                                                </Image.Source>
+                                            </Image>
+                                            <Border.GestureRecognizers>
+                                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                                      Tapped="TapGestureRecognizer_Tapped" />
+                                            </Border.GestureRecognizers>
+                                        </Border>
+                                    </Grid>-->
+                                    </Grid>
+                                </ContentView>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                </Grid>
+            </RefreshView>
+            <!--Remember, when the phone is on Power saving mode, the animation won't show-->
+            <BoxView Grid.Row="0" Color="#4B000000" 
+                     Opacity="0" IsVisible="false"
+                     x:Name="Backdrop">
+                <BoxView.GestureRecognizers>
+                    <TapGestureRecognizer
+                         />
+                </BoxView.GestureRecognizers>
+            </BoxView>
+            <Border Grid.Row="0"
+                   x:Name="BottomToolbar"
+                   HeightRequest="300"
+                   Margin="-5,0,-5,0"
+                   VerticalOptions="End"
+                   StrokeShape="RoundRectangle 30"
+                   Stroke="{StaticResource Primary}"
+                   BackgroundColor="{StaticResource Gradient1}"
+                   TranslationY="360"
+                   Padding="15,6">
+                <!--The border won't show up when you apply a shadow on it.-->
+                <!--<Border.Shadow>
+                    <Shadow Brush="{StaticResource ShadowDark}"
+                            Radius="15"
+                            Offset="10,-30"
+                            Opacity=".2" />
+                </Border.Shadow>-->
+                <Border.GestureRecognizers>
+                    <PanGestureRecognizer
+                         />
+                </Border.GestureRecognizers>
+                <AbsoluteLayout>
+                    <StackLayout Orientation="Vertical" Padding="0,4"
+                                 AbsoluteLayout.LayoutFlags="SizeProportional"
+                                 AbsoluteLayout.LayoutBounds="0,0,1,1">
+                        <Border HeightRequest="8"
+                                WidthRequest="60" StrokeShape="RoundRectangle 20"
+                                BackgroundColor="{StaticResource TextColorGray}"
+                                HorizontalOptions="Center" />
+                        <Label Text="Select actions"
+                               HorizontalOptions="Center"
+                               FontSize="18"
+                               FontAttributes="Bold" />
+                        <TableView Intent="Settings"
+                                   VerticalOptions="End">
+                            <TableSection Title="View"
+                                          TextColor="{StaticResource TextColorGray}">
+                                <TextCell TextColor="{StaticResource TextColorBlack}"
+                                          Text="Property Preview"  />
+                                <TextCell TextColor="{StaticResource TextColorBlack}"
+                                          Text="Publish"  x:Name="btnpub_unpub"/>
+                            </TableSection>
+                        </TableView>
+                    </StackLayout>
+                    <StackLayout
+                        x:Name="progressLoading_bottomtoolbar"
+                        IsVisible="False"
+                        VerticalOptions="FillAndExpand"
+                        HorizontalOptions="FillAndExpand"
+                        AbsoluteLayout.LayoutBounds="0,0,1,1"
+                        AbsoluteLayout.LayoutFlags="All" Opacity="0.5"
+                        BackgroundColor="Black">
+                        <skia:SKLottieView Grid.Row="0"
+                                           VerticalOptions="Center"
+                                           Source="loader.json"
+                                           HeightRequest="200"
+                                           Margin="0,0,0,0"
+                                           WidthRequest="200"
+                                           RepeatCount="-1" />
+                        <!--<Label Text="Processing , please wait..." 
+                   Margin="0" HorizontalOptions="CenterAndExpand" 
+                   TextColor="WhiteSmoke"/>-->
+                    </StackLayout>
+                    <VerticalStackLayout x:Name="technicalerror"
+                                         IsVisible="False"
+                                         VerticalOptions="FillAndExpand"
+                                         HorizontalOptions="FillAndExpand"
+                                         AbsoluteLayout.LayoutBounds="0,0,1,1"
+                                         AbsoluteLayout.LayoutFlags="All" Spacing="0"
+                                         BackgroundColor="{StaticResource Gradient1}">
+                        <Label Text="Something went wrong. Please check your internet connection."
+                               TextColor="{StaticResource TextColorGray}"
+                               Margin="0,30,0,0" FontSize="Small" HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"/>
+                        <skia:SKLottieView Grid.Row="0"
+                                           VerticalOptions="Center"
+                                           Source="technical.json"
+                                           HeightRequest="200"
+                                           Margin="0,0,0,0"
+                                           WidthRequest="200"
+                                           RepeatCount="-1" />
+
+                    </VerticalStackLayout>
+                    <ImageButton Source="close.png" AbsoluteLayout.LayoutBounds=".99,.0,AutoSize,AutoSize"
+                                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                                 HeightRequest="25" WidthRequest="25">
+                        <ImageButton.Behaviors>
+                            <xct:IconTintColorBehavior TintColor="{StaticResource TextColorGray}" />
+                        </ImageButton.Behaviors>
+                    </ImageButton>
+                </AbsoluteLayout>
+            </Border>
+        </Grid>
+
+        <Border Opacity="1"
+                AbsoluteLayout.LayoutBounds=".95,.99,AutoSize,AutoSize"
+                AbsoluteLayout.LayoutFlags="PositionProportional"
+                BackgroundColor="{StaticResource ButtonColor}"
+                WidthRequest="70" StrokeShape="RoundRectangle 50"
+                Padding="20" StrokeThickness="0"
+                HeightRequest="70">
+            <Image Source="add.png" />
+            <Border.Shadow>
+                <Shadow Brush="{StaticResource ShadowDark}"
+                        Radius="20"
+                        Offset="10,10"
+                        Opacity="1" />
+            </Border.Shadow>
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                       />
+            </Border.GestureRecognizers>
+        </Border>
+
+        <StackLayout
+            x:Name="progressLoading"
+            IsVisible="False"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            AbsoluteLayout.LayoutBounds="0,0,1,1"
+            AbsoluteLayout.LayoutFlags="All" Opacity="0.9"
+            BackgroundColor="Black">
+            <skia:SKLottieView Grid.Row="0"
+                               VerticalOptions="Center"
+                               Source="loader.json"
+                               HeightRequest="200"
+                               Margin="0,300,0,0"
+                               WidthRequest="200"
+                               RepeatCount="-1" />
+            <!--<Label Text="Processing , please wait..." 
+                   Margin="0" HorizontalOptions="CenterAndExpand" 
+                   TextColor="WhiteSmoke"/>-->
+        </StackLayout>
+        <Grid x:Name="nointernet"
+                             IsVisible="False"
+                             VerticalOptions="FillAndExpand"
+                             HorizontalOptions="FillAndExpand"
+                             AbsoluteLayout.LayoutBounds="0,0,1,1"
+                             AbsoluteLayout.LayoutFlags="All"
+                             BackgroundColor="{StaticResource Primary}">
+            <Grid VerticalOptions="CenterAndExpand" RowDefinitions="Auto, Auto, Auto" RowSpacing="0">
+                <Label Grid.Row="0" Text="Something went wrong. Please check your internet connection."
+                       TextColor="{StaticResource TextColorGray}" VerticalOptions="Center"
+                       Margin="0,30,0,0" FontSize="Small" HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center" />
+                <skia:SKLottieView Grid.Row="1"
+                                   VerticalOptions="Center"
+                                   Source="technical.json"
+                                   HeightRequest="200"
+                                   Margin="0,0,0,0"
+                                   WidthRequest="200"
+                                   RepeatCount="-1" />
+                <Button Grid.Row="2" Text="Try again" CornerRadius="30"
+                        BackgroundColor="{StaticResource ButtonColor}"
+                        Margin="40,0" x:Name="btntryagain" 
+                        TextColor="{StaticResource TextColorBlack}"/>
+            </Grid>
+        </Grid>
+    </AbsoluteLayout>
 </ContentPage>
